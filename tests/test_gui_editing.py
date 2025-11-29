@@ -18,7 +18,7 @@ class TestGuiEditing(TestSetupMixin):
         self.window.process_purchase("Хлеб", 50, "Продукты", date_qt)
 
         # Act
-        self.window.process_purchase("Батон", 45, "Продукты", date_qt2, id_to_update=0)
+        self.window.process_purchase("Батон", 45, "Продукты", date_qt2, id_to_update=1)
     
         # Assert
         date = QDateTime.fromString(self.window.purchase_list.item(0, 0).text(), "dd-MM-yyyy HH:mm")
@@ -36,7 +36,7 @@ class TestGuiEditing(TestSetupMixin):
         self.window.process_purchase("Хлеб", 50, "Техника", date_qt)
 
         # Act
-        self.window.process_purchase("Хлеб", 50, "Продукты", date_qt, id_to_update=0)
+        self.window.process_purchase("Хлеб", 50, "Продукты", date_qt, id_to_update=1)
     
         # Assert
         category = self.window.purchase_list.item(0, 3).text()

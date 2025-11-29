@@ -196,7 +196,7 @@ class MoneyControlApp(QMainWindow):
         else:
             category = get_category_by_name(self.session, category_name)
         
-        if not id_to_update: # новая запись
+        if id_to_update is False: # новая запись
             add_purchase(self.session, product_name, cost, date, category)
             self.reload_all_purchases()
             # print(self.all_purchases)
