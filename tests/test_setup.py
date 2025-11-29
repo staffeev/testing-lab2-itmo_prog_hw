@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QApplication, QMessageBox
 from models import db_session
 from gui.main_window import MoneyControlApp
 from datetime import datetime
+from PyQt5.QtCore import QDateTime
 
 app = QApplication([])
 
@@ -24,7 +25,6 @@ class TestSetupMixin(unittest.TestCase):
         cls._patch_critical.stop()
 
     def setUp(self):
-        self.cur_date = datetime.now().date()
         db_session.global_init(self.TEST_DB)
         self.engine = db_session.create_session().bind
         db_session.SqlAlchemyBase.metadata.create_all(self.engine)

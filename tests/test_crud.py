@@ -5,6 +5,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 from test_setup import TestSetupMixin
 from db.db_control_functions import add_category, add_purchase, get_categories, get_products, \
     delete_category_by_name, delete_purcahses
+from datetime import datetime
 
 
 class TestCRUD(TestSetupMixin):
@@ -31,7 +32,7 @@ class TestCRUD(TestSetupMixin):
         """Добавление покупки"""
         cat_name = "Техника"
         cat = add_category(self.window.session, cat_name)
-        purchase = add_purchase(self.window.session, "Ноутбук", 30000, self.cur_date, cat)
+        purchase = add_purchase(self.window.session, "Ноутбук", 30000, datetime(2025, 10, 15), cat)
         self.assertIn(purchase, get_products(self.window.session))
         self.assertTrue(any(c.name == cat_name for c in get_categories(self.window.session)))
 
@@ -39,7 +40,7 @@ class TestCRUD(TestSetupMixin):
         """Добавление покупки с пустым именем"""
         cat = add_category(self.window.session, "Категория")
         with self.assertRaises(Exception):
-            add_purchase(self.window.session, "", 30000, self.cur_date, cat)
+            add_purchase(self.window.session, "", 30000, datetime(2025, 10, 15), cat)
 
     def test_delete_category(self):
         """Удаление категории"""
@@ -52,7 +53,7 @@ class TestCRUD(TestSetupMixin):
         """Удаление покупки"""
         cat_name = "Медицина"
         cat = add_category(self.window.session, cat_name)
-        purchase = add_purchase(self.window.session, "Анализы", 7000, self.cur_date, cat)
+        purchase = add_purchase(self.window.session, "Анализы", 7000, datetime(2025, 10, 15), cat)
         delete_purcahses(self.window.session, [purchase.id])
         self.assertTrue(purchase not in get_products(self.window.session))
 
@@ -62,7 +63,7 @@ class TestCRUD(TestSetupMixin):
 
         cat_name = "Образование"
         cat = add_category(self.window.session, cat_name)
-        p = add_purchase(self.window.session, "ДПО от Яндекса", 150000, self.cur_date, cat)
+        p = add_purchase(self.window.session, "ДПО от Яндекса", 150000, datetime(2025, 10, 15), cat)
         p.name = "ДПО от Альфа-банка"
         p.date = datetime(2025, 10, 15, 0, 0)
         p.cost = 135000
@@ -76,7 +77,7 @@ class TestCRUD(TestSetupMixin):
     def test_change_purchase_empty_name(self):
         """Изменение покупки на пустое имя"""
         cat = add_category(self.window.session, "Категория")
-        p = add_purchase(self.window.session, "Товар", 10000, self.cur_date, cat)
+        p = add_purchase(self.window.session, "Товар", 10000, datetime(2025, 10, 15), cat)
         p.name = ""
         with self.assertRaises(Exception):
             self.window.session.commit()
