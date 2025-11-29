@@ -2,3 +2,6 @@ PyQt5==5.15.10
 PyQt5_sip==12.12.2
 SQLAlchemy==1.4.31
 pyqtdarktheme==2.1.0
+pytest-qt
+pytest
+pytest-cov
