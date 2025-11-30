@@ -27,7 +27,6 @@ class MoneyControlApp(QMainWindow):
         super().__init__()
         loadUi("gui/ui/main_window.ui", self)
         self.setCentralWidget(self.centralwidget)
-        self.setLayout(self.gridLayout)
         self.setStyleSheet("QToolTip { color: #ffffff; background-color: #000000; border: 0px; }")
         db_session.global_init(path_to_db)
         self.session = db_session.create_session()
@@ -182,11 +181,9 @@ class MoneyControlApp(QMainWindow):
         self.process_purchase(*form.get_data(), negative_cost=negative_cost)
         
     def process_purchase(self, *args, id_to_update=False, negative_cost=False):
-        print(negative_cost)
         """Обработка данных о новой покупке"""
         product_name, cost, category_name, date = args
         cost = -cost if negative_cost else cost
-        print(args)
         date = date.toPyDateTime()
         if category_name not in list(map(str, self.all_categories)): # новая категория
             category = add_category(self.session, category_name)
@@ -199,8 +196,6 @@ class MoneyControlApp(QMainWindow):
         if id_to_update is False: # новая запись
             add_purchase(self.session, product_name, cost, date, category)
             self.reload_all_purchases()
-            # print(self.all_purchases)
-            # self.all_purchases.append(purchase)
             self.update_shown_purchases()
         else: # измененная запись
             change_purchase(self.session, id_to_update, product_name, cost, date, category)

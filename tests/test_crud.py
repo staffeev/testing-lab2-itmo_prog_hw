@@ -17,9 +17,14 @@ class TestCRUD(TestSetupMixin):
         self.assertIn(cat, get_categories(self.window.session))
 
     def test_add_category_empty_name(self):
-        """Добавление категории с путым именем"""
+        """Добавление категории с пустым именем"""
         with self.assertRaises(Exception):
             add_category(self.window.session, "")
+
+    def test_add_category_long_name(self):
+        """Добавление категории с слишкм длинным именем"""
+        with self.assertRaises(Exception):
+            add_category(self.window.session, "A" * 1001)
     
     def test_add_category_nonunique_name(self):
         """Дублирование категории"""
@@ -41,6 +46,18 @@ class TestCRUD(TestSetupMixin):
         cat = add_category(self.window.session, "Категория")
         with self.assertRaises(Exception):
             add_purchase(self.window.session, "", 30000, datetime(2025, 10, 15), cat)
+
+    def test_add_purchase_long_name(self):
+        """Добавление покупки с слишком длинным именем"""
+        cat = add_category(self.window.session, "Категория")
+        with self.assertRaises(Exception):
+            add_purchase(self.window.session, "A" * 1001, 30000, datetime(2025, 10, 15), cat)
+    
+    def test_add_purchase_large_cost(self):
+        """Добавление покупки с слишком большой суммой"""
+        cat = add_category(self.window.session, "Категория")
+        with self.assertRaises(Exception):
+            add_purchase(self.window.session, "", 10 ** 9 + 7, datetime(2025, 10, 15), cat)
 
     def test_delete_category(self):
         """Удаление категории"""
