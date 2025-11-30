@@ -29,5 +29,7 @@ jobs:
 
     - name: Run unittest tests with coverage
       run: |
+        Xvfb :99 -screen 0 1920x1080x24 &
+        export DISPLAY=:99
         coverage run --source=gui,db,models -m unittest discover -s tests -p "test_*.py"
         coverage report -m
