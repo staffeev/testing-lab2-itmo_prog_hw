@@ -36,5 +36,5 @@ jobs:
       - name: Run tests with coverage
         run: |
           export QT_QPA_PLATFORM=offscreen
-          green -vvv --run-coverage -s tests -p "test_*.py"
+          green --run-coverage -vvv -p test_*.py tests
 
