@@ -1,4 +1,4 @@
-Работы выполнил: Стафеев Иван Алексееич (https://t.me/st_affeev)
+Работы выполнил: Стафеев Иван Алексееич (https://t.me/st_affeev), группа K3321
 
 Проект: https://github.com/staffeev/itmo_prog_hw
 
