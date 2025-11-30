@@ -31,10 +31,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install coverage
+          pip install green
 
-      - name: Run tests with coverage (headless)
+      - name: Run tests with coverage
         run: |
           export QT_QPA_PLATFORM=offscreen
-          coverage run --source=gui,db,models -m unittest discover -s tests -p "test_*.py"
-          coverage report -m
+          green -vvv --run-coverage -s tests -p "test_*.py"
 

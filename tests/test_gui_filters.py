@@ -15,12 +15,6 @@ class TestGuiFiltersSorting(TestSetupMixin):
     def setUp(self):
         super().setUp()
         # Несколько покупок для дальнейших операций
-        
-        # self.patcher_dt = mock.patch("datetime.datetime")
-        # mock_dt = self.patcher_dt.start()
-        # self.addCleanup(self.patcher_dt.stop)
-        # mock_dt.now.return_value = datetime(2025, 10, 20)
-        # mock_dt.side_effect = lambda *args, **kwargs: datetime(*args, **kwargs)
 
         self.purchases_data = [
             ["Хлеб", 50, "Продукты", QDateTime(datetime.datetime(2025, 10, 20))],

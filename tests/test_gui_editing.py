@@ -30,7 +30,7 @@ class TestGuiEditing(TestSetupMixin):
         self.assertEqual(float(self.window.total_cost.text()), 45.0)
     
     def test_change_purchase_new_category(self):
-        """Изменение данных о покупке"""
+        """Изменение данных о покупке с добавлением новой категории"""
         # Arrange
         date_qt = QDateTime(datetime(2025, 10, 15))
         model = self.window.category_combobox.model()

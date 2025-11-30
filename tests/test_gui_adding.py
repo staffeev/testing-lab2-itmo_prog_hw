@@ -21,14 +21,15 @@ class TestGuiAdding(TestSetupMixin):
     
 
     def test_add_purchase(self):
-        """Добавление покупки с новой категорией"""
+        """Добавление покупки"""
         # Arrange
         model = self.window.category_combobox.model()
         date_qt = QDateTime(datetime(2025, 10, 25))
 
         # Act
+        self.window.process_purchase("Аванс", 15000, "Зарплата", QDateTime(datetime(2025, 10, 15)), negative_cost=True)
         self.window.process_purchase("Хлеб", 50, "Продукты", date_qt)
-
+        
         # Assert
         date = QDateTime.fromString(self.window.purchase_list.item(0, 0).text(), "dd-MM-yyyy HH:mm")
         name = self.window.purchase_list.item(0, 1).text()
@@ -39,4 +40,4 @@ class TestGuiAdding(TestSetupMixin):
         self.assertEqual(float(self.window.total_cost.text()), 50.0)
         category_names = [model.item(i).text() for i in range(model.rowCount())]
         self.assertIn("Продукты", category_names)
-    
+        self.assertEqual(float(self.window.balance.text()), 14950.0)
