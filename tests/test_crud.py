@@ -95,6 +95,6 @@ class TestCRUD(TestSetupMixin):
         """Изменение покупки на пустое имя"""
         cat = add_category(self.window.session, "Категория")
         p = add_purchase(self.window.session, "Товар", 10000, datetime(2025, 10, 15), cat)
-        p.name = ""
         with self.assertRaises(Exception):
+            p.name = ""
             self.window.session.commit()

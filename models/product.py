@@ -17,6 +17,8 @@ class Product(SqlAlchemyBase):
     @validates("name")
     def validate_name(self, _, value):
         """Проверка допустимых значений для имени"""
+        if not value:
+            raise ValueError("Name can't be empty")
         if len(value) > 1000:
             raise ValueError("Name length can't be more than 1000 symbols")
         return value
