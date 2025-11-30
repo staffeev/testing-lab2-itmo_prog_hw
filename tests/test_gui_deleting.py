@@ -28,6 +28,7 @@ class TestGuiDeleting(TestSetupMixin):
         self.assertEqual(self.window.purchase_list.item(0, 1).text(), third_name)
         category_names = [model.item(i).text() for i in range(model.rowCount())]
         self.assertNotIn("Продукты", category_names)
+        self.assertEqual(float(self.window.total_cost.text()), 30000)
     
     def test_delete_purchases(self):
         """Удаление покупок"""
@@ -44,3 +45,4 @@ class TestGuiDeleting(TestSetupMixin):
         # Assert
         self.assertEqual(self.window.purchase_list.rowCount(), 1)
         self.assertEqual(self.window.purchase_list.item(0, 1).text(), second_name)
+        self.assertEqual(float(self.window.total_cost.text()), 90)

@@ -19,6 +19,10 @@ class TestSetupMixin(unittest.TestCase):
         cls._patch_question.start()
         cls._patch_critical.start()
 
+        cls._patch_qt = mock.patch("PyQt5.QtCore.QDateTime.currentDateTime", 
+                                   return_value=QDateTime(datetime(2025, 10, 20, 0, 0, 0)))
+        cls._patch_qt.start()
+
     @classmethod
     def tearDownClass(cls):
         cls._patch_question.stop()
@@ -29,7 +33,6 @@ class TestSetupMixin(unittest.TestCase):
         self.engine = db_session.create_session().bind
         db_session.SqlAlchemyBase.metadata.create_all(self.engine)
         self.window = MoneyControlApp(self.TEST_DB)
-        # self.window.show()
 
     def tearDown(self):
         self.window.session.close()

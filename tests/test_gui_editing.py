@@ -27,6 +27,7 @@ class TestGuiEditing(TestSetupMixin):
         category = self.window.purchase_list.item(0, 3).text()
         self.assertEqual([name, cost, date, category], 
                          ["Батон", 45.0, date_qt2, "Продукты"])
+        self.assertEqual(float(self.window.total_cost.text()), 45.0)
     
     def test_change_purchase_new_category(self):
         """Изменение данных о покупке"""
